@@ -1,15 +1,14 @@
-#Makefile
-all: sum-test
+TARGET=add-nbo
+CXXFLAGS=-g
 
-sum-test: sum.o main.o
-	g++ -o sum-test sum.o main.o
+all: $(TARGET)
 
-main.o: sum.h main.cpp
-	g++ -c -o main.o main.cpp
+$(TARGET): add-nbo.o
+	$(LINK.cpp) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-sum.o: sum.h sum.cpp
-	g++ -c -o sum.o sum.cpp
+add-nbo.o: add-nbo.c
+	$(COMPILE.c) $(OUTPUT_OPTION) $<
+
 clean:
-	rm -f sum-test
+	rm -f $(TARGET)
 	rm -f *.o
-
